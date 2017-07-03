@@ -3,6 +3,8 @@ import os
 import subprocess
 import time
 from youtube import *
+from urllib.request import urlretrieve
+from PIL import Image
 
 
 class MiFormulario(QtGui.QDialog):
@@ -291,9 +293,11 @@ class MiFormulario(QtGui.QDialog):
         cadena = file.readline()
         temp = len(cadena)
         id1 = cadena[:temp -1]
-        os.system("wget https://img.youtube.com/vi/"+id1+"/maxresdefault.jpg -O 1.jpg")
+        thumb = urlretrieve("https://img.youtube.com/vi/" + id1 + "/maxresdefault.jpg", "thumb_01.ico")
+        thumb = Image.open("thumb_01.jpg")
+        #os.system("wget https://img.youtube.com/vi/"+id1+"/maxresdefault.jpg -O 1.jpg")
         icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap("1.jpg"))
+        icon1.addPixmap(QtGui.QPixmap.load(thumb)
         self.ui.Button1.setIcon(icon1)
 
         cadena2 = file.readline()
@@ -328,16 +332,6 @@ class MiFormulario(QtGui.QDialog):
         icon5.addPixmap(QtGui.QPixmap("5.jpg"))
         self.ui.Button5.setIcon(icon5)
         file.close()
-
-
-
-
-
-
-
-
-
-
 
 
 
